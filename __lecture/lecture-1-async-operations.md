@@ -119,7 +119,31 @@ const App = () => {
 
   React.useEffect(() => {
     // Dispatch `receiveAllScores` after BOTH fetches have completed
+    Promise.all();
+    fetch("/hockey").then((scores) => {
+      dispatch(receiveHockeyScores(scores));
+    });
 
+    fetch("/baseball").then((scores) => {
+      dispatch(receiveBaseballScores(scores));
+    });
+  }, []);
+
+  return <Scores />;
+};
+```
+
+```js
+const receiveAllScores = () => ({
+  type: "RECEIVE_ALL_SCORES",
+});
+
+const App = () => {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    // Dispatch `receiveAllScores` after BOTH fetches have completed
+const promise = await Promise.all([fetch("/hockey"))
     fetch("/hockey").then((scores) => {
       dispatch(receiveHockeyScores(scores));
     });

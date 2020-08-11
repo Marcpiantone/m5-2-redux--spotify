@@ -1,23 +1,23 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import { useDispatch } from "react-redux";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
-} from 'react-router-dom';
+} from "react-router-dom";
 
 import {
   requestAccessToken,
   receiveAccessToken,
   receiveAccessTokenError,
-} from '../../actions';
+} from "../../actions";
 
-import ArtistRoute from '../ArtistRoute';
-import MaxWidthWrapper from '../MaxWidthWrapper';
-import GlobalStyles from '../GlobalStyles';
+import ArtistRoute from "../ArtistRoute";
+import MaxWidthWrapper from "../MaxWidthWrapper";
+import GlobalStyles from "../GlobalStyles";
 
-const DEFAULT_ARTIST_ID = '2CIMQHirSU0MQqyYHq0eOx';
+const DEFAULT_ARTIST_ID = "2CIMQHirSU0MQqyYHq0eOx";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -25,12 +25,12 @@ const App = () => {
   React.useEffect(() => {
     dispatch(requestAccessToken());
 
-    fetch('/spotify_access_token')
-      .then(res => res.json())
-      .then(json => {
+    fetch("/spotify_access_token")
+      .then((res) => res.json())
+      .then((json) => {
         dispatch(receiveAccessToken(json.access_token));
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
         dispatch(receiveAccessTokenError());
       });
@@ -40,10 +40,12 @@ const App = () => {
     <Router>
       <MaxWidthWrapper>
         <Switch>
-          <Route path="/artist/:artistId">
+          <Route exact path="/artist/:artistId">
             <ArtistRoute />
           </Route>
-          <Redirect to={`/artist/${DEFAULT_ARTIST_ID}`} />
+          <Route exact path="/">
+            <Redirect to={`/artist/${DEFAULT_ARTIST_ID}`} />
+          </Route>
         </Switch>
       </MaxWidthWrapper>
       <GlobalStyles />

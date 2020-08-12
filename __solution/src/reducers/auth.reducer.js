@@ -1,29 +1,29 @@
 const initialState = {
   token: null,
-  status: 'idle',
+  status: "idle",
 };
 
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
-    case 'REQUEST_ACCESS_TOKEN': {
+    case "REQUEST_ACCESS_TOKEN": {
       return {
         ...state,
-        status: 'loading',
+        status: "loading",
       };
     }
 
-    case 'RECEIVE_ACCESS_TOKEN': {
+    case "RECEIVE_ACCESS_TOKEN": {
       return {
         ...state,
         token: action.token,
-        status: 'idle',
+        status: "idle",
       };
     }
 
-    case 'RECEIVE_ACCESS_TOKEN_ERROR': {
+    case "RECEIVE_ACCESS_TOKEN_ERROR": {
       return {
         ...state,
-        status: 'error',
+        status: "error",
       };
     }
 
@@ -33,4 +33,4 @@ export default function authReducer(state = initialState, action) {
   }
 }
 
-export const getAccessToken = state => state.auth.token;
+export const getAccessToken = (state) => state.auth;

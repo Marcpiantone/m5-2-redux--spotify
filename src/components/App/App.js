@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-22
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,6 +16,7 @@ import {
   receiveAccessToken,
   receiveAccessTokenError,
 } from "../../actions";
+import { useDispatch } from "react-redux";
 
 const DEFAULT_ARTIST_ID = "3WrFJ7ztbogyGnTHbHJFl2";
 
@@ -24,13 +25,13 @@ const App = () => {
 
   const handleNewToken = () => {
     dispatch(requestAccessToken());
+
     fetch("/spotify_access_token")
       .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-      })
+      .then((json) => dispatch(receiveAccessToken(json.access_token)))
       .catch((err) => {
         console.error(err);
+        dispatch(receiveAccessTokenError);
       });
   };
 

@@ -31,7 +31,7 @@ const App = () => {
       .then((json) => dispatch(receiveAccessToken(json.access_token)))
       .catch((err) => {
         console.error(err);
-        dispatch(receiveAccessTokenError);
+        dispatch(receiveAccessTokenError());
       });
   };
 

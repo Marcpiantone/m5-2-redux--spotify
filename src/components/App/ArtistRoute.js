@@ -1,11 +1,17 @@
 import React, { Component, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchArtistProfile } from "../../helpers/api-helpers";
-import { getAccessToken } from "../../reducers/auth-reducer";
+import {
+  requestArtist,
+  receiveArtist,
+  receiveArtistError,
+} from "../../actions";
+import { getArtist } from "../../reducers/artists-reducer";
 
 const ArtistRoute = () => {
-  const accessTokenState = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
   const accessToken = useSelector((state) => state.auth.token);
   const params = useParams();
   const artistId = params.id;
@@ -16,9 +22,19 @@ const ArtistRoute = () => {
     if (!accessToken) {
       return;
     }
-
-    fetchArtistProfile(accessToken, artistId);
+    dispatch(requestArtist());
+    fetchArtistProfile(accessToken, artistId)
+      .then((data) => {
+        dispatch(receiveArtist(data));
+      })
+      .catch((err) => {
+        console.error(err);
+        dispatch(receiveArtistError());
+      });
   }, [accessToken]);
+
+  const artist = useSelector(getArtist());
+  console.log(artist);
 
   return <div>ArtistRoute</div>;
 };

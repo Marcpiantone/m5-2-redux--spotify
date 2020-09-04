@@ -12,6 +12,7 @@ export default function artistReducer(state = initialState, action) {
       };
     }
     case "RECEIVE_ARTIST": {
+      console.log(action);
       return {
         ...state,
         artist: action.artist,
@@ -31,5 +32,9 @@ export default function artistReducer(state = initialState, action) {
 }
 
 export const getArtist = () => {
-  return (state) => state;
+  return (state) => state.artist.artist;
+};
+
+export const getArtistStatus = () => {
+  return (state) => state.artist.status;
 };

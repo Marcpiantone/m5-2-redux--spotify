@@ -7,7 +7,7 @@ import {
   receiveArtist,
   receiveArtistError,
 } from "../../actions";
-import { getArtist } from "../../reducers/artists-reducer";
+import { getArtist, getArtistStatus } from "../../reducers/artists-reducer";
 
 const ArtistRoute = () => {
   const dispatch = useDispatch();
@@ -15,10 +15,9 @@ const ArtistRoute = () => {
   const accessToken = useSelector((state) => state.auth.token);
   const params = useParams();
   const artistId = params.id;
-  console.log(accessToken);
-  console.log(!accessToken);
 
   useEffect(() => {
+    console.log(accessToken);
     if (!accessToken) {
       return;
     }
@@ -36,7 +35,15 @@ const ArtistRoute = () => {
   const artist = useSelector(getArtist());
   console.log(artist);
 
-  return <div>ArtistRoute</div>;
+  const status = useSelector(getArtistStatus());
+  console.log(status);
+
+  if (artist === null) {
+    return <div>LOADING...</div>;
+  }
+  if (artist) {
+    return <div>...</div>;
+  }
 };
 
 export default ArtistRoute;

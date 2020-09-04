@@ -25,7 +25,6 @@ const App = () => {
 
   const handleNewToken = () => {
     dispatch(requestAccessToken());
-
     fetch("/spotify_access_token")
       .then((res) => res.json())
       .then((json) => dispatch(receiveAccessToken(json.access_token)))
@@ -37,7 +36,7 @@ const App = () => {
 
   useEffect(() => {
     handleNewToken();
-  });
+  }, []);
 
   return (
     <Router>

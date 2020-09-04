@@ -38,11 +38,29 @@ const ArtistRoute = () => {
   const status = useSelector(getArtistStatus());
   console.log(status);
 
+  const followerFormatter = (num) => {
+    return num < 999
+      ? num
+      : num < 999999
+      ? (num / 1000).toFixed(1) + "k"
+      : (num / 1000000).toFixed(1) + "M";
+  };
+
   if (artist === null) {
     return <div>LOADING...</div>;
   }
   if (artist) {
-    return <div>...</div>;
+    const followersNum = followerFormatter(artist.followers.total);
+    return (
+      <div>
+        <h1>{artist.name}</h1>
+        <h2>{followersNum} followers</h2>
+        <h3>Tags</h3>
+        {artist.genres.slice(0, 2).map((genre, index) => {
+          return <div key={genre + index}>{genre}</div>;
+        })}
+      </div>
+    );
   }
 };
 

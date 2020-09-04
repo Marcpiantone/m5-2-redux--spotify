@@ -18,7 +18,7 @@ import {
 } from "../../actions";
 import { useDispatch } from "react-redux";
 
-const DEFAULT_ARTIST_ID = "3WrFJ7ztbogyGnTHbHJFl2";
+const DEFAULT_ARTIST_ID = "57dN52uHvrHOxijzpIgu3E";
 
 const App = () => {
   const dispatch = useDispatch();
